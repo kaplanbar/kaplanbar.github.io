@@ -1,4 +1,4 @@
-baseurl = "https://kaplanbar.github.io/personal-blog"
+baseurl = "https://kaplanbar.github.io/"
 title = "kaplanbar"
 theme = "pulp"
 canonifyurls = true
