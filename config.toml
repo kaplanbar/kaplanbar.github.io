@@ -1,57 +1,68 @@
-baseurl = "https://kaplanbar.github.io/"
-title = "kaplanbar"
-theme = "pulp"
-canonifyurls = true
-hasCJKLanguage = true
-pygmentsCodefences = true
-# pygmentsUseClasses = true
-# googleAnalytics = "{your tracking code}"
+baseURL = "https://kaplanbar.github.io/"
+languageCode = "en"
+DefaultContentLanguage = "en"
+enableInlineShortcodes = true
+enableEmoji = true
+# pagination = 10
 
-[markup.goldmark.renderer]
-    unsafe = true # Allow user HTML tags
+title = "Blog"
+author = "Yilmaz Baris Kaplan"
+copyright = "[Home](/) &#183; Theme [Simpleness](https://github.com/RainerChiang/simpleness) Powered by [Hugo](https://gohugo.io/)"
+
+theme = "simpleness"
+googleAnalytics = ""
 
 [params]
-    author = "Yilmaz Baris Kaplan"
-    avatar = "avatar.jpg"
-    # avatarDescription = "My avatar description"
-    favicon = "favicon.ico"
-    description = """
-    """
-    publicationYear = "2021"
-    # listPageDateFormat = "January, 2006" # See https://gohugo.io/functions/format/
-    # singlePageDateFormat = "January 2, 2006"
-    # custom_css = ["/css/custom.css"]
-    # custom_js = ["/js/custom.js"]
+  lazyImage = true
+  enableMathJax = false # enable it in Front Matter
+  enableReadingTime = true
+  favicon = "favicon.ico"
+  startyear = "2021"
+  showmonth = true
+  slogan = "always make it happen"
+  description = "A simple and concise hugo theme."
+  disqus = ""
 
-# Make sure setting a following option for search bar to work
-[outputs]
-    section = ["JSON", "HTML"]
-    term = ["JSON", "HTML"]
+[params.valine]
+  enable = false
+  lang = 'en' # zh-CN
+  appId = ''
+  appKey = ''
+  placeholder = 'Say Something......'
+  requiredFields = ['nick', 'mail']
+  avatar = 'robohash'
+  visitor = true
+  enableHeaderVisitor = true
+  debug = true
 
-[[menu.main]]
-    identifier = "blog"
-    # name = "Blog" #If display text link, cancel comment out
-    pre = "<i class='fa fa-book-open fa-lg'></i>" #Choose your favorite font from Font Awesome
-    url = "/blog/"
-    weight = 10
+[menu]
+  [[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+  [[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 2
 
-[[menu.main]]
-    identifier = "twitter"
-    # name = "Twitter"
-    pre = "<i class='fab fa-twitter fa-lg'></i>"
-    url = "https://twitter.com/kaplanybaris"
-    weight = 20
+[social]
+  github = "https://github.com/kaplanbar"
+  rss = "index.xml"
 
-[[menu.main]]
-    identifier = "github"
-    # name = "GitHub"
-    pre = "<i class='fab fa-github fa-lg'></i>"
-    url = "https://github.com/kaplanbar"
-    weight = 30
+[taxonomies]
+category = "categories"
+tag = "tags"
 
-[[menu.main]]
-    identifier = "email"
-    # name = "Email"
-    pre = "<i class='fa fa-envelope fa-lg'></i>"
-    url = "mailto:kaplanybaris@gmail.com"
-    weight = 40
+# doc: https://gohugo.io/getting-started/configuration-markup#highlight
+# syntax style: https://xyproto.github.io/splash/docs/longer/all.html
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = true
+    noClasses = true
+    style = "monokai" # github, dracula, vim, monokai
+    tabWidth = 4
