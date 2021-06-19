@@ -15,8 +15,10 @@ disableToC: false
 disableAutoCollapse: true
 ---
 
-Hello, I am a senior undergraduate student at Istanbul Technical University, studying Computer Engineering. You can find my resume on my [LinkedIn](https://www.linkedin.com/in/kaplanbar/) page.
+I am Yılmaz Barış Kaplan, currently studying my last semester at Istanbul Technical University, Turkey.
 
-In my free time, I like to solve algorithm problems and participate in competitions. I am also interested in philosophy, economics and politics.
+You can find more details on my background at [LinkedIn](https://www.linkedin.com/in/kaplanbar/) page.
 
-In this blog, I plan to share algorithm problems that I like, posts related to computer engineering and ideas on other areas that I am interested in.
+I am interested in reading different sources on philosophy, economics and politics. In this blog, I might share my thoughts and reviews on these topics.
+
+I also like working on puzzles and algorithm problems on my free time, I plan to share them occasionally.
