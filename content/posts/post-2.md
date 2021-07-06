@@ -16,12 +16,12 @@ disableToC: false
 disableAutoCollapse: true
 ---
 
-I will share a solution to the problem [CF 258E.](https://codeforces.com/contest/451/problem/E) I think this is a nice combinatorics problem and there is a simpler solution than the one described in the editorial.
+I will share a solution to the problem [CF 258E.](https://codeforces.com/contest/451/problem/E)
 
 ## Short statement
-You are given \\(n\\) boxes where \\(i\\)-th box contains \\(f_i\\) flowers. All flowers in a box are the same color (indistinguishable), and no two flowers in different boxes have the same color.
+You are given \\(n\\) boxes where \\(i\\)-th box contains \\(f_i\\) flowers. All flowers in a box are same color (indistinguishable) and there are no two flowers in the different boxes that have the same color.
 
-We want to select exactly \\(s\\) flowers from boxes, find out how many different ways to select in modulo \\(10^9 + 7\\).
+We want to select exactly \\(s\\) flowers from those boxes. Find out how many different ways to select in modulo \\(10^9 + 7\\).
 
 \\(n \leq 20\\), \\(f_i \leq 10^{12}\\) and \\(s \leq 10^{14}\\).
 
@@ -35,9 +35,9 @@ $$
 
 where \\(0 \leq x_i \leq f_i\\).
 
-Assume that we did not have the constraint on \\(f_i\\). Then the answer would be \\(\binom{s + n - 1}{n - 1}\\).
+Assume that we did not have the constraint on \\(f_i\\). Then we could calculate answer as \\(\binom{s + n - 1}{n - 1}\\).
 
-Since we have constraint on the maximum number of flowers we can take from the \\(i\\)-th box, we have to subtract the cases where we took more than we could.
+Since we have constraint on the maximum number of flowers we can take from the \\(i\\)-th box, the equation above contains cases where we took more than we could from some boxes. We can reach the answer by subtracting such cases.
 
 Assume that we took more flowers than we can for the boxes \\(b_i \in B \\). Then the number ways we have counted where we took more flowers than we can will be equal to \\(\binom{(s - \sum (f_{b_i} + 1)) + n - 1}{n - 1}\\). We can think this formula as we preserved \\( f_{b_i} + 1 \\) flowers for the \\(i\\)-th box so that it is guaranteed to exceed \\(f_i\\).
 
