@@ -9,7 +9,7 @@
 <a href=/categories/competitive-programming>Competitive Programming</a>
 &nbsp;
 <a href=/categories/mathematics>Mathematics</a>
-&nbsp;</div></header><div class=post-text><p>I will share a solution to the problem <a href=https://codeforces.com/contest/1967/problem/B2>CF 1967B2</a></p><p>I found it as a nice mathematical problem.</p><h2 id=short-statement>Short statement</h2><p>Problem statement itself is already quite short, so no summary is needed.</p><p>You are given two positive integers \(n, m\).</p><p>Calculate the number of ordered pairs \(a, b\) satisfying the following conditions:</p><ul><li>\(1 \leq a \leq n, 1 \leq b \leq m\)</li><li>\(b \times gcd(a, b\) is a multiple of \a + b\)</li></ul><h2 id=solution>Solution</h2><p>Let \(x = a + b\)</p><p>Then, we have the equation:
+&nbsp;</div></header><div class=post-text><p>I will share a solution to the problem <a href=https://codeforces.com/contest/1967/problem/B2>CF 1967B2</a></p><p>I found it as a nice mathematical problem.</p><h2 id=short-statement>Short statement</h2><p>Problem statement itself is already quite short, so no summary is needed.</p><p>You are given two positive integers \(n, m\).</p><p>Calculate the number of ordered pairs \(a, b\) satisfying the following conditions:</p><ul><li>\(1 \leq a \leq n, 1 \leq b \leq m\)</li><li>\(b \times gcd(a, b)\) is a multiple of \(a + b\)</li></ul><h2 id=solution>Solution</h2><p>Let \(x = a + b\)</p><p>Then, we have the equation:
 $$
 x \mid b \times gcd(a, b)
 $$</p><p>Note that \(gcd(a,b) = gcd(a + b, b) = gcd(x, b)\)</p><p>So we have the equation:
