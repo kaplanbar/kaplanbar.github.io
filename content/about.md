@@ -15,6 +15,12 @@ disableToC: false
 disableAutoCollapse: true
 ---
 
-I am Yılmaz Barış Kaplan, currently studying my last semester at Istanbul Technical University, Turkey.
+I am Yilmaz Baris Kaplan. Currently working as backend software engineer at Zalando SE. Located in Germany.
 
-You can find more details on my background at [LinkedIn](https://www.linkedin.com/in/kaplanbar/) page.
+My daily work consists of developing backend services using mainly Scala and Kotlin.
+
+I am interested in competitive programming, LLM applications and distributed systems.
+
+In this blog, I try to share whenever I learn something interesting.
+
+If you would like to reach to me, feel free to send an email to kaplanybaris@gmail.com
