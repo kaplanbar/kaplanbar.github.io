@@ -3,22 +3,24 @@
 <a href=https://kaplanbar.github.io/index.xml target=_blank><i title=RSS class="fas fa-rss"></i></a></div></nav><article class=post><header class=post-header><h1 style=text-align:center>Editorial: [CF] 1967B2</h1><div class=post-metadata><time datetime=2024-05-22T00:00:00Z>May 22, 2024</time> &nbsp;
 <i class="far fa-clock"></i>
 2 min
-30 s
+31 s
 &nbsp;
 <i class="fas fa-folder"></i>
 <a href=/categories/competitive-programming>Competitive Programming</a>
 &nbsp;
 <a href=/categories/mathematics>Mathematics</a>
-&nbsp;</div></header><div class=post-text><p>I will share a solution to the problem <a href=https://codeforces.com/contest/1967/problem/B2>CF 1967B2</a></p><p>I found it as a nice mathematical problem.</p><h2 id=short-statement>Short statement</h2><p>Problem statement itself is already quite short, so no summary is needed.</p><p>You are given two positive integers \(n, m\).</p><p>Calculate the number of ordered pairs \(a, b\) satisfying the following conditions:</p><ul><li>\(1 \leq a \leq n, 1 \leq b \leq m\)</li><li>\(b \times gcd(a, b)\ is a multiple of \a + b\)</li></ul><h2 id=solution>Solution</h2><p>Let \(x = a + b\)</p><p>Then, we have the equation:
+&nbsp;</div></header><div class=post-text><p>I will share a solution to the problem <a href=https://codeforces.com/contest/1967/problem/B2>CF 1967B2</a></p><p>I found it as a nice mathematical problem.</p><h2 id=short-statement>Short statement</h2><p>Problem statement itself is already quite short, so no summary is needed.</p><p>You are given two positive integers \(n, m\).</p><p>Calculate the number of ordered pairs \(a, b\) satisfying the following conditions:</p><ul><li>\(1 \leq a \leq n, 1 \leq b \leq m\)</li><li>\(b \times gcd(a, b\) is a multiple of \a + b\)</li></ul><h2 id=solution>Solution</h2><p>Let \(x = a + b\)</p><p>Then, we have the equation:
 $$
 x \mid b \times gcd(a, b)
 $$</p><p>Note that \(gcd(a,b) = gcd(a + b, b) = gcd(x, b)\)</p><p>So we have the equation:
 $$
 x \mid b \times gcd(x, b)
 $$</p><p>What does that mean? Actually, if we think about that \(b = k \times gcd(x, b)\) for some \(k\) given that \(gcd(x, k) = 1\). So, we have the following:</p><p>$$
-x \mid k \times gcd(x, b) \ times gcd(x, b)
-x \mid k \times gcd(x, b)^2
-x \mid gcd(x, b)^2
+\begin{align*}
+& x \mid k \times gcd(x, b) \times gcd(x, b) \
+& x \mid k \times gcd(x, b)^2 \
+& x \mid gcd(x, b)^2
+\end{align*}
 $$</p><p>This gives us a nice property about the relation between \(x\) and \(b\). If we think about that, only way to satisfy that equation is for \(b\) to have all prime factors of \(x\) with at least of half of their powers.</p><p>So we can use that to brute force on all possible \(x\)&rsquo;s. Then, find prime factors of that \(x\) in \(O(logN)\) and calculate how many \(b\) are possible.</p><p>To calculate how many of \(b\) are possible, we just need to take into account that</p><ol><li>\(b \leq m\)</li><li>\(b &lt; x - n\) so that \(1 \leq a \leq n\) is satisfied.</li></ol><p>You can find the C++ code for the solution described above.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c++ data-lang=c++><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;algorithm&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;iostream&gt;</span><span style=color:#75715e>
 </span></span></span><span style=display:flex><span><span style=color:#75715e>#include</span> <span style=color:#75715e>&lt;cassert&gt;</span><span style=color:#75715e>
