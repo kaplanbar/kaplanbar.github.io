@@ -23,30 +23,30 @@ I found it as a nice mathematical problem.
 ## Short statement
 Problem statement itself is already quite short, so no summary is needed.
 
-You are given two positive integers \\n, m\\.
+You are given two positive integers \\(n, m\\).
 
-Calculate the number of ordered pairs \\(a, b)\\ satisfying the following conditions:
+Calculate the number of ordered pairs \\(a, b\\) satisfying the following conditions:
 
-- \\1 \leq a \leq n, 1 \leq b \leq m.
-- \\b \times gcd(a, b)\\ is a multiple of \\a + b\\.
+- \\(1 \leq a \leq n, 1 \leq b \leq m\\)
+- \\(b \times gcd(a, b)\\ is a multiple of \\a + b\\)
 
 ## Solution
 
-Let \\x = a + b\\
+Let \\(x = a + b\\)
 
 Then, we have the equation:
 $$
 x \mid b \times gcd(a, b) 
 $$
 
-Note that \\gcd(a,b) = gcd(a + b, b) = gcd(x, b)\\
+Note that \\(gcd(a,b) = gcd(a + b, b) = gcd(x, b)\\)
 
 So we have the equation:
 $$
 x \mid b \times gcd(x, b)
 $$
 
-What does that mean? Actually, if we think about that \\b = k \times gcd(x, b)\\ for some \\k\\ given that \\gcd(x, k) = 1\\. So, we have the following:
+What does that mean? Actually, if we think about that \\(b = k \times gcd(x, b)\\) for some \\(k\\) given that \\(gcd(x, k) = 1\\). So, we have the following:
 
 $$
 x \mid k \times gcd(x, b) \ times gcd(x, b)
@@ -54,14 +54,14 @@ x \mid k \times gcd(x, b)^2
 x \mid gcd(x, b)^2
 $$
 
-This gives us a nice property about the relation between \\x\\ and \\b\\. If we think about that, only way to satisfy that equation is for \\b\\ to have all prime factors of \\x\\ with at least of half of their powers.
+This gives us a nice property about the relation between \\(x\\) and \\(b\\). If we think about that, only way to satisfy that equation is for \\(b\\) to have all prime factors of \\(x\\) with at least of half of their powers.
 
-So we can use that to brute force on all possible \\x\\'s. Then, find prime factors of that \\x\\ in \\O(logN)\\ and calculate how many \\b\\ are possible.
+So we can use that to brute force on all possible \\(x\\)'s. Then, find prime factors of that \\(x\\) in \\(O(logN)\\) and calculate how many \\(b\\) are possible.
 
-To calculate how many of \\b\\ are possible, we just need to take into account that
+To calculate how many of \\(b\\) are possible, we just need to take into account that
 
-1. \\b \leq m\\
-2. \\b < x - n\\ so that \\1 \leq a \leq n\\ is satisfied.
+1. \\(b \leq m\\)
+2. \\(b < x - n\\) so that \\(1 \leq a \leq n\\) is satisfied.
 
 
 You can find the C++ code for the solution described above.
