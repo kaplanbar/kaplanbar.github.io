@@ -28,7 +28,7 @@ You are given two positive integers \\(n, m\\).
 Calculate the number of ordered pairs \\(a, b\\) satisfying the following conditions:
 
 - \\(1 \leq a \leq n, 1 \leq b \leq m\\)
-- \\(b \times gcd(a, b)\\ is a multiple of \\a + b\\)
+- \\(b \times gcd(a, b\\) is a multiple of \\a + b\\)
 
 ## Solution
 
@@ -49,9 +49,11 @@ $$
 What does that mean? Actually, if we think about that \\(b = k \times gcd(x, b)\\) for some \\(k\\) given that \\(gcd(x, k) = 1\\). So, we have the following:
 
 $$
-x \mid k \times gcd(x, b) \ times gcd(x, b)
-x \mid k \times gcd(x, b)^2
-x \mid gcd(x, b)^2
+\begin{align*}
+& x \mid k \times gcd(x, b) \times gcd(x, b) \\
+& x \mid k \times gcd(x, b)^2 \\
+& x \mid gcd(x, b)^2
+\end{align*}
 $$
 
 This gives us a nice property about the relation between \\(x\\) and \\(b\\). If we think about that, only way to satisfy that equation is for \\(b\\) to have all prime factors of \\(x\\) with at least of half of their powers.
