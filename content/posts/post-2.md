@@ -28,7 +28,7 @@ You are given two positive integers \\(n, m\\).
 Calculate the number of ordered pairs \\(a, b\\) satisfying the following conditions:
 
 - \\(1 \leq a \leq n, 1 \leq b \leq m\\)
-- \\(b \times gcd(a, b\\) is a multiple of \\a + b\\)
+- \\(b \times gcd(a, b)\\) is a multiple of \\(a + b\\)
 
 ## Solution
 
