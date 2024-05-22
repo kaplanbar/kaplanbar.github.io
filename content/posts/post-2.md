@@ -1,12 +1,12 @@
 ---
-title: "[CF] 258E"
-date: 2021-06-27
+title: "Editorial: [CF] 1967B2"
+date: 2024-05-22
 lastmod: 
 author: Yilmaz Baris Kaplan
 
 description: 
-categories: [empty]
-tags: [empty]
+categories: [Competitive Programming, Mathematics]
+tags: [Codeforces, Editorial]
 
 
 draft: false
@@ -16,100 +16,142 @@ disableToC: false
 disableAutoCollapse: true
 ---
 
-I will share a solution to the problem [CF 258E.](https://codeforces.com/contest/451/problem/E)
+I will share a solution to the problem [CF 1967B2](https://codeforces.com/contest/1967/problem/B2)
+
+I found it as a nice mathematical problem.
 
 ## Short statement
-You are given \\(n\\) boxes where \\(i\\)-th box contains \\(f_i\\) flowers. All flowers in a box are same color (indistinguishable) and there are no two flowers in the different boxes that have the same color.
+Problem statement itself is already quite short, so no summary is needed.
 
-We want to select exactly \\(s\\) flowers from those boxes. Find out how many different ways to select in modulo \\(10^9 + 7\\).
+You are given two positive integers \\n, m\\.
 
-\\(n \leq 20\\), \\(f_i \leq 10^{12}\\) and \\(s \leq 10^{14}\\).
+Calculate the number of ordered pairs \\(a, b)\\ satisfying the following conditions:
+
+- \\1 \leq a \leq n, 1 \leq b \leq m.
+- \\b \times gcd(a, b)\\ is a multiple of \\a + b\\.
 
 ## Solution
 
-Let \\(x_i\\) be the number of flowers taken from the \\(i\\)-th box. Then, we will have the following equation:
+Let \\x = a + b\\
+
+Then, we have the equation:
+$$
+x \mid b \times gcd(a, b) 
+$$
+
+Note that \\gcd(a,b) = gcd(a + b, b) = gcd(x, b)\\
+
+So we have the equation:
+$$
+x \mid b \times gcd(x, b)
+$$
+
+What does that mean? Actually, if we think about that \\b = k \times gcd(x, b)\\ for some \\k\\ given that \\gcd(x, k) = 1\\. So, we have the following:
 
 $$
-x_1 + x_2 + x_3 + \dots + x_n = s,
+x \mid k \times gcd(x, b) \ times gcd(x, b)
+x \mid k \times gcd(x, b)^2
+x \mid gcd(x, b)^2
 $$
 
-where \\(0 \leq x_i \leq f_i\\).
+This gives us a nice property about the relation between \\x\\ and \\b\\. If we think about that, only way to satisfy that equation is for \\b\\ to have all prime factors of \\x\\ with at least of half of their powers.
 
-Assume that we did not have the constraint on \\(f_i\\). Then we could calculate answer as \\(\binom{s + n - 1}{n - 1}\\).
+So we can use that to brute force on all possible \\x\\'s. Then, find prime factors of that \\x\\ in \\O(logN)\\ and calculate how many \\b\\ are possible.
 
-Since we have constraint on the maximum number of flowers we can take from the \\(i\\)-th box, the equation above contains cases where we took more than we could from some boxes. We can reach the answer by subtracting such cases.
+To calculate how many of \\b\\ are possible, we just need to take into account that
 
-Assume that we took more flowers than we can for the boxes \\(b_i \in B \\). Then the number ways we have counted where we took more flowers than we can will be equal to \\(\binom{(s - \sum (f_{b_i} + 1)) + n - 1}{n - 1}\\). We can think this formula as we preserved \\( f_{b_i} + 1 \\) flowers for the \\(i\\)-th box so that it is guaranteed to exceed \\(f_i\\).
+1. \\b \leq m\\
+2. \\b < x - n\\ so that \\1 \leq a \leq n\\ is satisfied.
 
-Using that formula, we can calculate the number of cases where we took more flowers than we could and subtract it from the total number of cases.
 
 You can find the C++ code for the solution described above.
 
 ```c++
+#include <algorithm>
+#include <iostream>
+#include <cassert>
+#include <climits>
+#include <cstdlib>
+#include <cstring>
+#include <iomanip>
+#include <numeric>
+#include <cstdio>
+#include <string>
+#include <vector>
+#include <cmath>
+#include <ctime>
+#include <queue>
+#include <stack>
+#include <map>
+#include <set>
+#include <unordered_set>
+#include <unordered_map>
+#include <bitset>
 
-#include <bits/stdc++.h>
 using namespace std;
+
 using ll = long long;
+
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
-
-    const int mod = 1e9 + 7;
-
-    int n;
-    ll s;
-    cin >> n >> s;
-
-    vector<ll> v(n);
-    for(int i = 0; i < n; i++) cin >> v[i];
-
-    auto fast_pw = [&](ll x, ll y) -> ll {
-        ll ret = 1;
-        for(;y;y>>=1) {
-            if(y&1) ret = (ret * x) % mod;
-            x = (x * x) % mod;
-        }
-        return ret;
-    };
-    vector<int> inv(n + 1);
-    for(int i = 1; i <= n; i++) {
-        inv[i] = fast_pw(i, mod - 2);
-    }
-
-    auto comb = [&](ll x, int y) -> ll {
-        assert(x >= y);
-        ll ret = 1;
-        for(int i = 0; i < y; i++) {
-            ret = (ret * ((x - i) % mod)) % mod;
-            ret = (ret * inv[i + 1]) % mod;
-        }
-        return ret;
-    };
-
-    ll ans = 0;
-
-    for(int i = 0; i < (1 << n); i++) {
-        ll cur = s;
-
-        int c = 0;
-
-        for(int j = 0; j < n; j++) {
-            if(i >> j & 1) {
-                cur -= v[j] + 1;
-                c++;
+    const int N = 4 * 1e6 + 10;
+    vector<int> lsp(N, 1);
+    for(int i = 2; i < N; i++) {
+        if(lsp[i] == 1) {
+            for(int j = i; j < N; j += i) {
+                lsp[j] = i;
             }
-            if(cur < 0) break;
         }
-        if(cur < 0) continue;
-
-        if(c & 1) ans = (ans - comb(cur + n - 1, n - 1) + mod) % mod;
-        else ans = (ans + comb(cur + n - 1, n - 1)) % mod;
-    
     }
+    int t;
+    cin >> t;
+    while(t--) {
+        int n, m;
+        cin >> n >> m;
 
-    cout << ans;
+        ll ans = 0;
 
+        auto fast_pw = [&](ll a, ll b) {
+            ll res = 1;
+            while(b) {
+                if(b & 1) {
+                    res = (res * a);
+                }
+                a = (a * a);
+                b >>= 1;
+            }
+            return res;
+        };
 
+        auto calculate = [&](ll x, ll divisor) {
+            ll all = min(x - 1, 1ll * m) / divisor;
+            ll big_a = max(0ll, min(x - n - 1, min(x - 1, 1ll * m))) / divisor;
+            return all - big_a;
+        };
+
+        auto find_prime_factors = [&](ll x) {
+            ll orig = x;
+            ll num = 1;
+            while(x > 1) {
+                int c = 0;
+                int p = lsp[x];
+                while(x % p == 0) {
+                    x /= p;
+                    c += 1;
+                }
+                num *= fast_pw(p, (c + 1) / 2);
+            }
+            return calculate(orig, num);
+        };
+
+        for(int i = 2; i <= n + m; i++) {
+            ans += find_prime_factors(i);
+        }
+
+        cout << ans << '\n';
+
+    }
     return 0;
 }
 

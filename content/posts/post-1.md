@@ -1,6 +1,6 @@
 ---
-title: Empty blog
-date: 2021-06-09
+title: "Editorial: [CF] 258E"
+date: 2021-06-27
 lastmod: 
 author: Yilmaz Baris Kaplan
 
@@ -11,93 +11,107 @@ tags: [empty]
 
 draft: false
 enableDisqus : true
-enableMathJax: false
+enableMathJax: true
 disableToC: false
 disableAutoCollapse: true
 ---
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+I will share a solution to the problem [CF 258E.](https://codeforces.com/contest/451/problem/E)
 
-# Heading 1
+## Short statement
+You are given \\(n\\) boxes where \\(i\\)-th box contains \\(f_i\\) flowers. All flowers in a box are same color (indistinguishable) and there are no two flowers in the different boxes that have the same color.
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+We want to select exactly \\(s\\) flowers from those boxes. Find out how many different ways to select in modulo \\(10^9 + 7\\).
 
-## Heading 2
+\\(n \leq 20\\), \\(f_i \leq 10^{12}\\) and \\(s \leq 10^{14}\\).
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+## Solution
 
-### Heading 3
+Let \\(x_i\\) be the number of flowers taken from the \\(i\\)-th box. Then, we will have the following equation:
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+$$
+x_1 + x_2 + x_3 + \dots + x_n = s,
+$$
 
-#### Heading 4
+where \\(0 \leq x_i \leq f_i\\).
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+Assume that we did not have the constraint on \\(f_i\\). Then we could calculate answer as \\(\binom{s + n - 1}{n - 1}\\).
 
-##### Heading 5
+Since we have constraint on the maximum number of flowers we can take from the \\(i\\)-th box, the equation above contains cases where we took more than we could from some boxes. We can reach the answer by subtracting such cases.
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+Assume that we took more flowers than we can for the boxes \\(b_i \in B \\). Then the number ways we have counted where we took more flowers than we can will be equal to \\(\binom{(s - \sum (f_{b_i} + 1)) + n - 1}{n - 1}\\). We can think this formula as we preserved \\( f_{b_i} + 1 \\) flowers for the \\(i\\)-th box so that it is guaranteed to exceed \\(f_i\\).
 
-###### Heading 6
+Using that formula, we can calculate the number of cases where we took more flowers than we could and subtract it from the total number of cases.
 
-Lid est laborum et dolorum fuga. Et harum quidem rerum facilis est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit quo minus id quod amets untra dolor amet sad. Sed ut perspser iciatis unde omnis iste natus error sit voluptatem accusantium doloremque laste. Dolores sadips ipsums sits.
+You can find the C++ code for the solution described above.
 
-## Typography
+```c++
 
-Lid est laborum et dolorum fuga, This is [an example](http://example.com/ "Title") inline link. Et harum quidem rerum facilis, **This is bold** and *emphasis* cumque nihilse impedit quo minus id quod amets untra dolor amet sad. While this is `code block()` and following is a `pre` tag
+#include <bits/stdc++.h>
+using namespace std;
+using ll = long long;
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
 
-	print 'this is pre tag'
+    const int mod = 1e9 + 7;
 
-Following is the syntax highlighted code block
+    int n;
+    ll s;
+    cin >> n >> s;
 
-```go
-func getCookie(name string, r interface{}) (*http.Cookie, error) {
-	rd := r.(*http.Request)
-	cookie, err := rd.Cookie(name)
-	if err != nil {
-		return nil, err
-	}
-	return cookie, nil
+    vector<ll> v(n);
+    for(int i = 0; i < n; i++) cin >> v[i];
+
+    auto fast_pw = [&](ll x, ll y) -> ll {
+        ll ret = 1;
+        for(;y;y>>=1) {
+            if(y&1) ret = (ret * x) % mod;
+            x = (x * x) % mod;
+        }
+        return ret;
+    };
+    vector<int> inv(n + 1);
+    for(int i = 1; i <= n; i++) {
+        inv[i] = fast_pw(i, mod - 2);
+    }
+
+    auto comb = [&](ll x, int y) -> ll {
+        assert(x >= y);
+        ll ret = 1;
+        for(int i = 0; i < y; i++) {
+            ret = (ret * ((x - i) % mod)) % mod;
+            ret = (ret * inv[i + 1]) % mod;
+        }
+        return ret;
+    };
+
+    ll ans = 0;
+
+    for(int i = 0; i < (1 << n); i++) {
+        ll cur = s;
+
+        int c = 0;
+
+        for(int j = 0; j < n; j++) {
+            if(i >> j & 1) {
+                cur -= v[j] + 1;
+                c++;
+            }
+            if(cur < 0) break;
+        }
+        if(cur < 0) continue;
+
+        if(c & 1) ans = (ans - comb(cur + n - 1, n - 1) + mod) % mod;
+        else ans = (ans + comb(cur + n - 1, n - 1)) % mod;
+    
+    }
+
+    cout << ans;
+
+
+    return 0;
 }
 
-func setCookie(cookie *http.Cookie, w interface{}) error {
-	// Get write interface registered using `Acquire` method in handlers.
-	wr := w.(http.ResponseWriter)
-	http.SetCookie(wr, cookie)
-	return nil
-}
 ```
 
-This is blockquote, Will make it *better now*
-
-> 'I want to do with you what spring does with the cherry trees.' <cite>cited ~Pablo Neruda</cite>*
-
-
-> Et harum quidem *rerum facilis* est et expeditasi distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihilse impedit
-
-Unordered list
-
-*   Red
-*   Green
-*   Blue
-
-Ordered list
-
-1.	Red
-2.  Green
-3.  Blue
-
-## Tables
-
-Tables aren't part of the core Markdown spec, but Hugo supports supports them out-of-the-box.
-
-   Name | Age
---------|------
-    Bob | 27
-  Alice | 23
-
-#### Inline Markdown within tables
-
-| Inline&nbsp;&nbsp;&nbsp;     | Markdown&nbsp;&nbsp;&nbsp;  | In&nbsp;&nbsp;&nbsp;                | Table      |
-| ---------- | --------- | ----------------- | ---------- |
-| *italics*  | **bold**  | ~~strikethrough~~&nbsp;&nbsp;&nbsp; | `code`     |
