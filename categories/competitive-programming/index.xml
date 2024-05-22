@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Competitive Programming on Blog</title><link>https://kaplanbar.github.io/categories/competitive-programming/</link><description>Recent content in Competitive Programming on Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>[Home](/) &amp;#183; Theme [Simpleness](https://github.com/RainerChiang/simpleness) Powered by [Hugo](https://gohugo.io/)</copyright><lastBuildDate>Wed, 22 May 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://kaplanbar.github.io/categories/competitive-programming/index.xml" rel="self" type="application/rss+xml"/><item><title>Editorial: [CF] 1967B2</title><link>https://kaplanbar.github.io/posts/post-2/</link><pubDate>Wed, 22 May 2024 00:00:00 +0000</pubDate><guid>https://kaplanbar.github.io/posts/post-2/</guid><description>I will share a solution to the problem CF 1967B2
 I found it as a nice mathematical problem.
 Short statement Problem statement itself is already quite short, so no summary is needed.
-You are given two positive integers \n, m\.
-Calculate the number of ordered pairs \(a, b)\ satisfying the following conditions:
-\1 \leq a \leq n, 1 \leq b \leq m. \b \times gcd(a, b)\ is a multiple of \a + b\.</description></item></channel></rss>
+You are given two positive integers \(n, m\).
+Calculate the number of ordered pairs \(a, b\) satisfying the following conditions:
+\(1 \leq a \leq n, 1 \leq b \leq m\) \(b \times gcd(a, b)\ is a multiple of \a + b\) Solution Let \(x = a + b\)</description></item></channel></rss>
