@@ -48,13 +48,11 @@ $$
 
 What does that mean? Actually, if we think about that \\(b = k \times gcd(x, b)\\) for some \\(k\\) given that \\(gcd(x, k) = 1\\). So, we have the following:
 
-$$
-\begin{align*}
-& x \mid k \times gcd(x, b) \times gcd(x, b) \\
-& x \mid k \times gcd(x, b)^2 \\
-& x \mid gcd(x, b)^2
-\end{align*}
-$$
+$$ x \mid k \times gcd(x, b) \times gcd(x, b) $$
+
+$$ x \mid k \times gcd(x, b)^2 $$
+
+$$ x \mid gcd(x, b)^2 $$
 
 This gives us a nice property about the relation between \\(x\\) and \\(b\\). If we think about that, only way to satisfy that equation is for \\(b\\) to have all prime factors of \\(x\\) with at least of half of their powers.
 
